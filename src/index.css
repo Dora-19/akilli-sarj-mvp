@@ -16,7 +16,8 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased; /* Fontları daha okunaklı yapar */
-  
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
   /* ---- İŞTE EN ÖNEMLİ KISIM ---- */
   background-color: #FFFFFF; /* Tüm site için TEK ve TUTARLI arka plan rengi (saf beyaz) */
   color: #1a202c; /* Varsayılan metin rengi (koyu gri/siyah) */
@@ -35,4 +36,65 @@ input, button, textarea, select {
 a {
   text-decoration: none; /* Linklerin altındaki çizgileri kaldır */
   color: inherit; /* Linklerin varsayılan metin rengini almasını sağlar */
+}
+
+/* MOBİL UYUMLULUK STİLLERİ                         */
+/* =============================================== */
+
+/* Tablet ve altı (992px ve daha küçük ekranlar) */
+@media (max-width: 992px) {
+  /* --- HowItWorksPage Sayfası --- */
+  .hiw-main-container {
+      flex-direction: column; /* Sütunları alt alta getirir */
+      margin-top: 2rem;
+  }
+
+  .hiw-left-column {
+      padding-right: 0; /* Sağdaki gereksiz boşluğu kaldırır */
+  }
+
+  .hiw-right-column {
+      display: none; /* Sağdaki yapışkan telefon maketini tamamen gizler */
+  }
+
+  .hiw-header {
+      padding: 3rem 1rem 1rem 1rem;
+  }
+  
+  .hiw-step-content {
+      min-height: auto; /* Otomatik yükseklik verir */
+      padding: 2rem 0 4rem 0; /* Adımlar arası boşluğu ayarlar */
+  }
+}
+
+/* Sadece Telefonlar (768px ve daha küçük ekranlar) */
+@media (max-width: 768px) {
+  /* --- Genel Font Boyutları --- */
+  .home-h1 {
+      font-size: 3rem !important; /* Ana sayfa başlığını küçültür */
+  }
+  .about-h1 {
+      font-size: 2.5rem !important; /* Hakkımızda başlığını küçültür */
+  }
+
+  /* --- AboutUsPage Sayfası --- */
+  .about-main-container {
+      flex-direction: column; /* Sütunları alt alta getirir */
+      gap: 3rem;
+  }
+
+  /* --- Footer Bileşeni --- */
+  .footer-top-section, .footer-branding {
+      text-align: center; /* Footer'ın üst kısmını ve marka bölümünü ortalar */
+  }
+
+  .footer-links-wrapper {
+      justify-content: center; /* Link sütunlarını ortalar */
+      width: 100%;
+  }
+
+  .footer-bottom-section {
+      flex-direction: column; /* Telif hakkı ve ikonları alt alta getirir */
+      gap: 1rem;
+  }
 }

@@ -1,8 +1,9 @@
 // src/pages/AboutUsPage.jsx
 
 import React from 'react';
-import { color, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import AnimatedPage from '../components/AnimatedPage';
+import useWindowSize from '../hooks/useWindowSize'; // MOBİL İÇİN EKLENDİ
 
 // LinkedIn ikonu için basit bir SVG bileşeni (Aynı kalıyor)
 const LinkedInIcon = () => (
@@ -15,6 +16,14 @@ const LinkedInIcon = () => (
 
 
 const AboutUsPage = () => {
+    
+  // --- MOBİL İÇİN EKLENEN KISIM BAŞLANGICI ---
+  const { width } = useWindowSize();
+  const isMobile = width < 768; // Sadece telefonlar için mobil görünüm
+  // --- MOBİL İÇİN EKLENEN KISIM SONU ---
+
+  const styles = getStyles(isMobile); // Stilleri dinamik hale getiriyoruz
+
   return (
     <AnimatedPage>
       <div style={styles.pageWrapper}>
@@ -29,7 +38,7 @@ const AboutUsPage = () => {
           >
             <h1 style={styles.h1}>Bizim Hikayemiz</h1>
             <p style={styles.p}>
-              Biz, İstanbul Teknik Üniversitesi'nde (İTÜ) öğrenim gören iki teknoloji meraklısı girişimciyiz. Üniversitenin ilk yılında, ortak bir tutkuyu paylaştığımızı fark ettik: büyük sorunlara basit ve akıllı çözümler üretmek. Elektrikli araçların yaygınlaşmasının önündeki şarj maliyetleri ve karmaşasına bir son verme hayaliyle <strong>ArıŞarj</strong> projesini başlattık.
+              Biz, İstanbul Teknik Üniversitesi'nde (İTÜ) öğrenim gören iki teknoloji meraklısı girişimciyiz. Üniversitenin ilk yılında, ortak bir tutkuyu paylaştığımızı fark ettik: büyük sorunlara basit ve akıllı çözümler üretmek. Elektrikli araçların yaygınlaşmasının önündeki şarj maliyetleri ve karmaşasına bir son verme hayaliyle <strong>Arı Şarj</strong> projesini başlattık.
             </p>
             <blockquote style={styles.quote}>
               "İTÜ'nün 'Arı' mottosundan ilhamla, çalışkanlığımızı ve teknolojiye olan merakımızı birleştirerek hem kullanıcılar hem de gezegenimiz için değer yaratabileceğimize inanıyoruz."
@@ -45,36 +54,40 @@ const AboutUsPage = () => {
           >
             {/* Profil Kartı 1 */}
             <div style={styles.profileCard}>
-              <div style={styles.profileInfo}>
-                <h3 style={styles.name}>Dora Alkan</h3>
-                <p style={styles.title}>Kurucu Ortak, Ürün Geliştirme</p>
-                <a 
-                    href="https://www.linkedin.com/in/dora-alkan-5a19ab2a0/" // Kendi URL'nizi buraya yapıştırın
-                    target="_blank" // Linkin yeni bir sekmede açılmasını sağlar
-                    rel="noopener noreferrer" // Güvenlik için eklenir
-                    style={styles.socialLink} 
-                    aria-label="LinkedIn Profili"
-                    >
-                    <LinkedInIcon />
-                </a>
-              </div>
+                {/* FOTOĞRAF ALANI */}
+                <img src="/images/dora.jpeg" alt="Dora Alkan" style={styles.photo} />
+                <div style={styles.profileInfo}>
+                    <h3 style={styles.name}>Dora Alkan</h3>
+                    <p style={styles.title}>Kurucu Ortak, Ürün Geliştirme</p>
+                    <a 
+                        href="https://www.linkedin.com/in/dora-alkan-5a19ab2a0/"
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        style={styles.socialLink} 
+                        aria-label="LinkedIn Profili"
+                        >
+                        <LinkedInIcon />
+                    </a>
+                </div>
             </div>
             
             {/* Profil Kartı 2 */}
             <div style={styles.profileCard}>
-              <div style={styles.profileInfo}>
-                <h3 style={styles.name}>Mehmet Enes Arslan</h3>
-                <p style={styles.title}>Kurucu Ortak, Teknoloji Geliştirme</p>
-                <a 
-                    href="https://www.linkedin.com/in/mehmet-enes-arslan-6b7755337/" // Kendi URL'nizi buraya yapıştırın
-                    target="_blank" // Linkin yeni bir sekmede açılmasını sağlar
-                    rel="noopener noreferrer" // Güvenlik için eklenir
-                    style={styles.socialLink} 
-                    aria-label="LinkedIn Profili"
-                    >
-                    <LinkedInIcon />
-                </a>
-              </div>
+                {/* FOTOĞRAF ALANI */}
+                <img src="/images/menes.jpg" alt="Mehmet Enes Arslan" style={styles.photo} />
+                <div style={styles.profileInfo}>
+                    <h3 style={styles.name}>Mehmet Enes Arslan</h3>
+                    <p style={styles.title}>Kurucu Ortak, Teknoloji Geliştirme</p>
+                    <a 
+                        href="https://www.linkedin.com/in/mehmet-enes-arslan-6b7755337/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        style={styles.socialLink} 
+                        aria-label="LinkedIn Profili"
+                        >
+                        <LinkedInIcon />
+                    </a>
+                </div>
             </div>
           </motion.div>
 
@@ -85,42 +98,42 @@ const AboutUsPage = () => {
 };
 
 
-// --- YENİ KOMPAKT STİLLER ---
-const styles = {
+// --- STİLLER BÖLÜMÜ GÜNCELLENDİ: SABİT BİR OBJEDEN, isMobile DEĞİŞKENİNİ ALAN BİR FONKSİYONA DÖNÜŞTÜRÜLDÜ ---
+const getStyles = (isMobile) => ({
   pageWrapper: {
     width: '100%',
-    minHeight: 'calc(100vh - 80px)', // Sayfanın en azından ekran boyunda olmasını sağlar
+    minHeight: 'calc(100vh - 80px)',
     display: 'flex',
-    alignItems: 'center', // İçeriği dikeyde ortala
+    alignItems: 'center',
     padding: '4rem 0',
   },
   mainContainer: {
     display: 'flex',
-    flexDirection: 'row', // Sütunları yan yana koy
+    flexDirection: isMobile ? 'column' : 'row', // Mobil için sütunları alt alta getir
     maxWidth: '1200px',
     width: '100%',
     margin: '0 auto',
     padding: '0 2rem',
-    gap: '4rem', // Sütunlar arası boşluk
-    // Not: Mobil için bu flexDirection: 'column' olmalı
+    gap: '4rem',
   },
   leftColumn: {
-    flex: 1.2, // Sol sütun biraz daha geniş olsun
+    flex: 1.2,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    textAlign: isMobile ? 'center' : 'left', // Mobil için metni ortala
   },
   rightColumn: {
-    flex: 0.8, // Sağ sütun biraz daha dar
+    flex: 0.8,
     display: 'flex',
     flexDirection: 'column',
-    gap: '2rem', // Profil kartları arası boşluk
+    gap: '2rem',
   },
   h1: {
-    fontSize: '3.5rem',
+    fontSize: isMobile ? '2.8rem' : '3.5rem', // Mobil için fontu küçült
     fontWeight: 'bold',
     marginBottom: '1.5rem',
-    color: '#1a202c', // Koyu ve okunaklı bir renk
+    color: '#1a202c',
   },
   p: {
     fontSize: '1.1rem',
@@ -134,6 +147,7 @@ const styles = {
     color: '#007CF0',
     paddingLeft: '1.5rem',
     borderLeft: '3px solid #007CF0',
+    textAlign: 'left', // Alıntıyı her zaman sola hizalı tut
   },
   profileCard: {
     display: 'flex',
@@ -144,12 +158,12 @@ const styles = {
     border: '1px solid #e9ecef',
     boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
   },
-  photoPlaceholder: {
+  photo: { // photoPlaceholder yerine photo stili
     width: '80px',
     height: '80px',
     borderRadius: '50%',
-    backgroundColor: '#dee2e6',
-    flexShrink: 0, // Daralmamasını sağlar
+    objectFit: 'cover', // Fotoğrafın orantısını korur
+    flexShrink: 0,
   },
   profileInfo: {
     marginLeft: '1.5rem',
@@ -166,7 +180,8 @@ const styles = {
   },
   socialLink: {
     color: '#495057',
+    cursor: 'pointer',
   },
-};
+});
 
 export default AboutUsPage;

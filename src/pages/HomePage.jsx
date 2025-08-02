@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedPage from '../components/AnimatedPage';
+import useWindowSize from '../hooks/useWindowSize'; // MOBİL İÇİN EKLENDİ
 
 // --- VERİLER VE AYARLAR ---
 
@@ -32,6 +33,14 @@ const HomePage = () => {
   const [currentCharge, setCurrentCharge] = useState(20);
   const [targetCharge, setTargetCharge] = useState(90);
   const [result, setResult] = useState(null);
+
+  // --- MOBİL İÇİN EKLENEN KISIM BAŞLANGICI ---
+  const { width } = useWindowSize();
+  const isMobile = width < 768; // Sadece telefonlar için mobil görünüm
+  // --- MOBİL İÇİN EKLENEN KISIM SONU ---
+
+  // Stilleri dinamik hale getiriyoruz
+  const styles = getStyles(isMobile);
 
   // Hesaplama Fonksiyonu
   const handleCalculate = () => {
@@ -153,31 +162,29 @@ const HomePage = () => {
 
 const FeatureItem = ({ icon, title, description }) => (
     <motion.div 
-        style={styles.featureItem}
+        style={getStyles().featureItem} // Stili getStyles'tan alıyoruz
         variants={{
             hidden: { opacity: 0, x: 50 },
             visible: { opacity: 1, x: 0 },
         }}
     >
-        <span style={styles.featureIcon}>{icon}</span>
+        <span style={getStyles().featureIcon}>{icon}</span>
         <div>
-            <h3 style={styles.h3}>{title}</h3>
-            <p style={styles.featureDescription}>{description}</p>
+            <h3 style={getStyles().h3}>{title}</h3>
+            <p style={getStyles().featureDescription}>{description}</p>
         </div>
     </motion.div>
 );
 
 
-// --- STİL OBJELERİ ---
-// (Bu yaklaşım, CSS dosyaları oluşturmadan hızlıca stil vermeyi sağlar)
-
-const styles = {
+// --- STİLLER BÖLÜMÜ GÜNCELLENDİ: SABİT BİR OBJEDEN, isMobile DEĞİŞKENİNİ ALAN BİR FONKSİYONA DÖNÜŞTÜRÜLDÜ ---
+const getStyles = (isMobile) => ({
   pageContainer: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '2rem 2rem', // Sayfa kenar boşlukları
+    padding: isMobile ? '2rem 1rem' : '2rem 2rem', // Mobil için yan boşlukları azalt
     fontFamily: 'sans-serif',
   },
   heroSection: {
@@ -186,29 +193,28 @@ const styles = {
     marginBottom: '4rem',
   },
   h1: {
-    fontSize: '4rem', // Büyük, etkileyici başlık
+    fontSize: isMobile ? '2.5rem' : '4rem', // Mobil için fontu küçült
     fontWeight: 'bold',
-    lineHeight: '1.1',
+    lineHeight: '1.2',
     marginBottom: '1.5rem',
     background: 'linear-gradient(90deg, #007CF0, #00DFD8)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
   },
   p: {
-    fontSize: '1.25rem',
+    fontSize: isMobile ? '1rem' : '1.25rem', // Mobil için fontu küçült
     color: '#555',
     lineHeight: '1.6',
   },
   appSection: {
     display: 'flex',
-    flexDirection: 'row', // Masaüstünde yan yana
+    flexDirection: isMobile ? 'column' : 'row', // Mobil için sütunları alt alta getir
     gap: '2rem',
     width: '100%',
     maxWidth: '1200px',
-    // Not: Mobil için bu 'flexDirection: "column"' olmalı. (CSS Media Query ile yapılır)
   },
   simulatorCard: {
-    flex: 1, // Sol sütun daha az yer kaplasın
+    flex: 1,
     background: 'white',
     padding: '2rem',
     borderRadius: '24px',
@@ -216,7 +222,7 @@ const styles = {
     border: '1px solid #eee',
   },
   featuresColumn: {
-    flex: 1.2, // Sağ sütun daha fazla yer kaplasın
+    flex: 1.2,
     display: 'flex',
     flexDirection: 'column',
     gap: '1.5rem',
@@ -308,6 +314,6 @@ const styles = {
     fontSize: '0.9rem',
     lineHeight: 1.5,
   }
-};
+});
 
 export default HomePage;

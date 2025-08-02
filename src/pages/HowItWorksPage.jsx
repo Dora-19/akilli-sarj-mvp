@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import AnimatedPage from '../components/AnimatedPage';
-
+import useWindowSize from '../hooks/useWindowSize'; // MOBİL İÇİN EKLENDİ
 
 // İçerik, projenin teknik vizyonunu yansıtacak şekilde.
 const steps = [
@@ -52,12 +52,19 @@ const StepContent = ({ children, onInView }) => {
 const HowItWorksPage = () => {
   const [activeStep, setActiveStep] = useState(0);
 
+  // --- MOBİL İÇİN EKLENEN KISIM BAŞLANGICI ---
+  const { width } = useWindowSize();
+  const isMobile = width < 992; // Tablet ve altı için mobil görünüm
+  // --- MOBİL İÇİN EKLENEN KISIM SONU ---
+  
+  // Stilleri dinamik hale getiriyoruz. isMobile değişkenini styles objesine gönderiyoruz.
+  const styles = getStyles(isMobile);
+
   return (
     <AnimatedPage>
       <div style={styles.header}>
         <h1 style={styles.h1}>Teknik Yaklaşımımız ve Vizyonumuz</h1>
         
-        {/* YENİ VURGU KUTUSU */}
         <motion.div 
             style={styles.visionContainer}
             initial={{ opacity: 0, y: 20 }}
@@ -90,56 +97,65 @@ const HowItWorksPage = () => {
           ))}
         </div>
 
-        {/* SAĞ SÜTUN: SABİT GÖRSEL ALANI */}
-        <div style={styles.rightColumn}>
-          <div style={styles.stickyVisual}>
-            <div style={styles.phoneMockup}>
-              <div style={styles.phoneScreen}>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeStep}
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.5 }}
-                    transition={{ duration: 0.3 }}
-                    style={styles.iconContainer}
-                  >
-                    <span style={styles.icon}>{steps[activeStep].icon}</span>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+        {/* --- MOBİL İÇİN EKLENEN KONTROL BAŞLANGICI --- */}
+        {/* Sadece mobil DEĞİLSE sağ sütunu göster */}
+        {!isMobile && (
+            <div style={styles.rightColumn}>
+                <div style={styles.stickyVisual}>
+                    <div style={styles.phoneMockup}>
+                    <div style={styles.phoneScreen}>
+                        <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeStep}
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.5 }}
+                            transition={{ duration: 0.3 }}
+                            style={styles.iconContainer}
+                        >
+                            <span style={styles.icon}>{steps[activeStep].icon}</span>
+                        </motion.div>
+                        </AnimatePresence>
+                    </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
+        )}
+        {/* --- MOBİL İÇİN EKLENEN KONTROL SONU --- */}
       </div>
     </AnimatedPage>
   );
 };
 
-// --- STİLLER ---
-const styles = {
+// --- STİLLER BÖLÜMÜ GÜNCELLENDİ: SABİT BİR OBJEDEN, isMobile DEĞİŞKENİNİ ALAN BİR FONKSİYONA DÖNÜŞTÜRÜLDÜ ---
+const getStyles = (isMobile) => ({
   header: {
     textAlign: 'center',
-    padding: '4rem 2rem 2rem 2rem',
+    padding: isMobile ? '3rem 1rem 1rem 1rem' : '4rem 2rem 2rem 2rem',
   },
-  h1: { fontSize: '3.5rem', fontWeight: 'bold', marginBottom: '1rem' },
+  h1: { 
+    fontSize: isMobile ? '2.5rem' : '3.5rem', 
+    fontWeight: 'bold', 
+    marginBottom: '1rem' 
+  },
   mainContainer: {
     display: 'flex',
+    flexDirection: isMobile ? 'column' : 'row',
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '0 2rem',
-    marginTop: '4rem',
+    padding: isMobile ? '0 1rem' : '0 2rem',
+    marginTop: isMobile ? '2rem' : '4rem',
   },
   leftColumn: {
     flex: 1.2,
-    paddingRight: '4rem',
+    paddingRight: isMobile ? 0 : '4rem',
   },
   stepContent: {
-    minHeight: '80vh',
+    minHeight: isMobile ? 'auto' : '80vh',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    padding: '2rem 0',
+    padding: isMobile ? '2rem 0 4rem 0' : '2rem 0',
   },
   rightColumn: {
     flex: 0.8,
@@ -185,15 +201,15 @@ const styles = {
     fontSize: '6rem',
   },
   h2: {
-    fontSize: '2rem',
+    fontSize: isMobile ? '1.8rem' : '2rem',
     fontWeight: 'bold',
     marginBottom: '1rem',
   },
   description: {
-    fontSize: '1.1rem',
+    fontSize: '1rem',
     lineHeight: 1.7,
     color: '#333',
-    minHeight: '120px',
+    minHeight: isMobile ? 'auto' : '120px',
   },
   techLabel: {
     fontSize: '0.9rem',
@@ -207,9 +223,9 @@ const styles = {
     color: '#555',
     fontStyle: 'italic',
   },
-  // Yeni eklenen vurgu kutusu stilleri
   visionContainer: {
     display: 'flex',
+    flexDirection: isMobile ? 'column' : 'row',
     alignItems: 'center',
     maxWidth: '850px',
     margin: '2rem auto 0 auto',
@@ -217,11 +233,12 @@ const styles = {
     border: '1px solid rgba(0, 124, 240, 0.1)',
     borderRadius: '16px',
     padding: '1.5rem 2rem',
-    textAlign: 'left',
+    textAlign: isMobile ? 'center' : 'left',
   },
   visionIconWrapper: {
     fontSize: '2rem',
-    marginRight: '1.5rem',
+    marginRight: isMobile ? 0 : '1.5rem',
+    marginBottom: isMobile ? '1rem' : 0,
     backgroundColor: 'rgba(0, 124, 240, 0.1)',
     width: '60px',
     height: '60px',
@@ -247,6 +264,6 @@ const styles = {
     lineHeight: 1.6,
     color: '#334155',
   },
-};
+});
 
 export default HowItWorksPage;
