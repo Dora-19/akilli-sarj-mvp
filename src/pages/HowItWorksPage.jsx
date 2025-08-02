@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import AnimatedPage from '../components/AnimatedPage';
 
+
 // İçerik, projenin teknik vizyonunu yansıtacak şekilde.
 const steps = [
   {
@@ -247,6 +248,5 @@ const styles = {
     color: '#334155',
   },
 };
-
 
 export default HowItWorksPage;
