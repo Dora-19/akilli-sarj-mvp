@@ -248,4 +248,5 @@ const styles = {
   },
 };
 
+
 export default HowItWorksPage;
