@@ -16,7 +16,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <main style={{ minHeight: '80vh', padding: '20px' }}>
+      <main>
         {/* AnimatePresence: Sayfalar arası geçiş animasyonlarını yönetir */}
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>

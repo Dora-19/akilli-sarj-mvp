@@ -11,7 +11,7 @@ const Navbar = () => {
       transition={{ duration: 0.8, ease: 'easeInOut' }}
       style={navStyle}
     >
-      <Link to="/" style={logoStyle}>AkıllıŞarj</Link>
+      <Link to="/" style={logoStyle}>Arı Şarj</Link>
       <div style={linksContainerStyle}>
         <Link to="/" style={linkStyle}>Ana Sayfa</Link>
         <Link to="/nasil-calisir" style={linkStyle}>Nasıl Çalışır?</Link>

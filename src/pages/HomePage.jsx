@@ -5,19 +5,30 @@ import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedPage from '../components/AnimatedPage';
 
 // --- VERİLER VE AYARLAR ---
+
 const carData = {
-  toggT10X: { name: 'Togg T10X V2', battery: 88.5 },
-  teslaModelY: { name: 'Tesla Model Y LR', battery: 75 },
+  toggT10X_V2: { name: 'Togg T10X V2 (88.5 kWh)', battery: 88.5 },
+  toggT10X_V1: { name: 'Togg T10X V1 (52.4 kWh)', battery: 52.4 },
+  teslaModelY_LR: { name: 'Tesla Model Y LR (75 kWh)', battery: 75 },
+  mg4_Comfort: { name: 'MG4 Comfort (64 kWh)', battery: 64 },
+  bydAtto3: { name: 'BYD Atto 3 (60.5 kWh)', battery: 60.5 },
+  renaultZoe: { name: 'Renault Zoe (52 kWh)', battery: 52 },
 };
+
+
+// EPDK'nın en güncel ulusal mesken tarifesinden alınmış, vergiler dahil yaklaşık değerler
+// (Ağustos 2025 itibarıyla tahminidir)
 const tariffs = {
-  peak: 4.8,
-  offPeak: 2.6,
+  // Gündüz (06:00-17:00) ve Puant (17:00-22:00) saatleri için ortalama bir değer
+  peak: 4.95,  // TL/kWh
+  // Gece (22:00-06:00) tarifesi
+  offPeak: 2.70, // TL/kWh
 };
 
 // --- ANA SAYFA BİLEŞENİ ---
 const HomePage = () => {
   // Simulator state'leri (formun durumunu tutar)
-  const [selectedCar, setSelectedCar] = useState('toggT10X');
+  const [selectedCar, setSelectedCar] = useState('toggT10X_V2');
   const [currentCharge, setCurrentCharge] = useState(20);
   const [targetCharge, setTargetCharge] = useState(90);
   const [result, setResult] = useState(null);
@@ -70,8 +81,12 @@ const HomePage = () => {
             {/* Araç Seçimi */}
             <label style={styles.label}>Araç Seçin</label>
             <select style={styles.select} value={selectedCar} onChange={(e) => setSelectedCar(e.target.value)}>
-              <option value="toggT10X">Togg T10X V2</option>
-              <option value="teslaModelY">Tesla Model Y LR</option>
+              <option value="toggT10X_V2">Togg T10X V2 (88.5 kWh)</option>
+              <option value="toggT10X_V1">Togg T10X V1 (52.4 kWh)</option>
+              <option value="teslaModelY_LR">Tesla Model Y LR (75 kWh)</option>
+              <option value="mg4_Comfort">MG4 Comfort (64 kWh)</option>
+              <option value="bydAtto3">BYD Atto 3 (60.5 kWh)</option>
+              <option value="renaultZoe">Renault Zoe (52 kWh)</option>
             </select>
 
             {/* Mevcut Şarj */}

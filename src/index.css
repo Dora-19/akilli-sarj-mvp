@@ -1,72 +1,38 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+/* src/index.css */
+
+/* 1. Modern CSS Reset Başlangıcı */
+*, *::before, *::after {
+  box-sizing: border-box; /* Kutu modelini daha sezgisel hale getirir */
+}
+
+body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
+  margin: 0; /* Tüm varsayılan dış boşlukları sıfırla */
+}
+
+/* 2. Global Stil Standardı */
+body {
+  min-height: 100vh; /* Sayfanın en az ekran boyunda olmasını sağlar */
+  scroll-behavior: smooth; /* Sayfa içi linklerde akıcı kaydırma sağlar */
+  text-rendering: optimizeSpeed;
   line-height: 1.5;
-  font-weight: 400;
+  -webkit-font-smoothing: antialiased; /* Fontları daha okunaklı yapar */
+  
+  /* ---- İŞTE EN ÖNEMLİ KISIM ---- */
+  background-color: #FFFFFF; /* Tüm site için TEK ve TUTARLI arka plan rengi (saf beyaz) */
+  color: #1a202c; /* Varsayılan metin rengi (koyu gri/siyah) */
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* 3. Diğer İyileştirmeler */
+img, picture, video, canvas, svg {
+  max-width: 100%;
+  display: block;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+input, button, textarea, select {
+  font: inherit; /* Form elemanlarının ana font stilini kullanmasını sağlar */
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0; /* Tarayıcının varsayılan boşluklarını sıfırla */
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: antialiased;
-  
-  /* Bu satırı değiştirin veya ekleyin */
-  background-color: #FFFFFF; /* Arka planı tamamen beyaz yap */
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  text-decoration: none; /* Linklerin altındaki çizgileri kaldır */
+  color: inherit; /* Linklerin varsayılan metin rengini almasını sağlar */
 }

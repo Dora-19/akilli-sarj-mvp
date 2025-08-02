@@ -29,7 +29,7 @@ const AboutUsPage = () => {
           >
             <h1 style={styles.h1}>Bizim Hikayemiz</h1>
             <p style={styles.p}>
-              Biz, İstanbul Teknik Üniversitesi'nde (İTÜ) öğrenim gören iki teknoloji meraklısı girişimciyiz. Üniversitenin ilk yılında, ortak bir tutkuyu paylaştığımızı fark ettik: büyük sorunlara basit ve akıllı çözümler üretmek. Elektrikli araçların yaygınlaşmasının önündeki şarj maliyetleri ve karmaşasına bir son verme hayaliyle AkıllıŞarj projesini başlattık.
+              Biz, İstanbul Teknik Üniversitesi'nde (İTÜ) öğrenim gören iki teknoloji meraklısı girişimciyiz. Üniversitenin ilk yılında, ortak bir tutkuyu paylaştığımızı fark ettik: büyük sorunlara basit ve akıllı çözümler üretmek. Elektrikli araçların yaygınlaşmasının önündeki şarj maliyetleri ve karmaşasına bir son verme hayaliyle <strong>ArıŞarj</strong> projesini başlattık.
             </p>
             <blockquote style={styles.quote}>
               "İTÜ'nün 'Arı' mottosundan ilhamla, çalışkanlığımızı ve teknolojiye olan merakımızı birleştirerek hem kullanıcılar hem de gezegenimiz için değer yaratabileceğimize inanıyoruz."
@@ -45,21 +45,35 @@ const AboutUsPage = () => {
           >
             {/* Profil Kartı 1 */}
             <div style={styles.profileCard}>
-              <div style={styles.photoPlaceholder}></div>
               <div style={styles.profileInfo}>
-                <h3 style={styles.name}>İsim Soyisim</h3>
+                <h3 style={styles.name}>Dora Alkan</h3>
                 <p style={styles.title}>Kurucu Ortak, Ürün Geliştirme</p>
-                <a href="#" style={styles.socialLink} aria-label="LinkedIn Profili"><LinkedInIcon /></a>
+                <a 
+                    href="https://www.linkedin.com/in/dora-alkan-5a19ab2a0/" // Kendi URL'nizi buraya yapıştırın
+                    target="_blank" // Linkin yeni bir sekmede açılmasını sağlar
+                    rel="noopener noreferrer" // Güvenlik için eklenir
+                    style={styles.socialLink} 
+                    aria-label="LinkedIn Profili"
+                    >
+                    <LinkedInIcon />
+                </a>
               </div>
             </div>
             
             {/* Profil Kartı 2 */}
             <div style={styles.profileCard}>
-              <div style={styles.photoPlaceholder}></div>
               <div style={styles.profileInfo}>
-                <h3 style={styles.name}>Arkadaşının İsmi</h3>
+                <h3 style={styles.name}>Mehmet Enes Arslan</h3>
                 <p style={styles.title}>Kurucu Ortak, Teknoloji Geliştirme</p>
-                <a href="#" style={styles.socialLink} aria-label="LinkedIn Profili"><LinkedInIcon /></a>
+                <a 
+                    href="https://www.linkedin.com/in/mehmet-enes-arslan-6b7755337/" // Kendi URL'nizi buraya yapıştırın
+                    target="_blank" // Linkin yeni bir sekmede açılmasını sağlar
+                    rel="noopener noreferrer" // Güvenlik için eklenir
+                    style={styles.socialLink} 
+                    aria-label="LinkedIn Profili"
+                    >
+                    <LinkedInIcon />
+                </a>
               </div>
             </div>
           </motion.div>
@@ -79,7 +93,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center', // İçeriği dikeyde ortala
     padding: '4rem 0',
-    backgroundColor: '#f8f9fa',
   },
   mainContainer: {
     display: 'flex',
